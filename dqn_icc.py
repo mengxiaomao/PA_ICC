@@ -26,7 +26,7 @@ flag_fig = True
 
 fd = 10
 Ts = 20e-3
-Ns = 1e3 #5e1 1e3
+Ns = 5e1 #5e1 1e3
 n_x = 5
 n_y = 5
 L = 2
@@ -61,8 +61,8 @@ sigma2_ = 1e-3*pow(10., p_n/10.)
 maxP = 1e-3*pow(10., max_p/10.)
 power_set = np.hstack([np.zeros((1), dtype=dtype), 1e-3*pow(10., np.linspace(min_p, max_p, power_num-1)/10.)])
 replay_memory = deque(maxlen = memory_size)
-weight_file = os.getcwd() + '\saved_networks' + '\dqn_00.mat'
-hist_file = 'C:\Software\workshop\python\Commsys\saved_networks\hist_00'
+weight_file = os.getcwd() + '\dqn_00.mat'
+hist_file = 'C:\Software\workshop\python\Commsys\hist_00'
     
 def Generate_H_set():
     '''
@@ -409,7 +409,7 @@ def Train(sess):
     st = time.time()
     dqn_hist = list() 
     for k in range(1, EPISODE+1):
-        dqn_hist.append(Train_episode(sess, k))        
+        dqn_hist.append(Train_episode(sess, k))
         if k % 100 == 0: 
             print("Episode(train):%d   DQN: %.3f   Time cost: %.2fs" 
                   %(k, np.mean(dqn_hist[-100:]), time.time()-st))
@@ -542,10 +542,10 @@ if __name__ == "__main__":
         cost = Loss(y, r)
         train_main, add_global = Optimizer(cost, list_main)
 
-#        with tf.Session() as sess:        
-#            tf.global_variables_initializer().run()
-#            train_hist = Train(sess)
-#            scipy.io.savemat(hist_file, {'train_hist':train_hist})
+        with tf.Session() as sess:        
+            tf.global_variables_initializer().run()
+            train_hist = Train(sess)
+            scipy.io.savemat(hist_file, {'train_hist':train_hist})
 #        Plot_environment()
 #        Bar_plot()
         pa_alg_set = PA_alg(M, K, maxP)    

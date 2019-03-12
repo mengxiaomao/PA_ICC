@@ -421,10 +421,10 @@ if __name__ == "__main__":
         train_main, add_global = Optimizer(cost, list_main)
         update = Network_update(list_main, list_targ)
 
-#        with tf.Session() as sess:        
-#            tf.global_variables_initializer().run()  
-#            train_hist = Train(sess)
-#            scipy.io.savemat(hist_file, {'train_hist':train_hist})
+        with tf.Session() as sess:        
+            tf.global_variables_initializer().run()  
+            train_hist = Train(sess)
+            scipy.io.savemat(hist_file, {'train_hist':train_hist})
             
 
         
